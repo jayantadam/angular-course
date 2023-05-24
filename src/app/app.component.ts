@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
   }
 
   onEditCourse() {
-    this.courses[1].category = "ADVANCED";
+    this.courses[0].category = "ADVANCED";
   }
 
   save(course: Course) {
@@ -48,6 +48,6 @@ export class AppComponent implements OnInit {
       .subscribe(() => console.log("Course Saved!"));
   }
   onToggle(isHighlighted: boolean) {
-    console.log("isHighlighted", isHighlighted);
+    // console.log("isHighlighted", isHighlighted);
   }
 }
