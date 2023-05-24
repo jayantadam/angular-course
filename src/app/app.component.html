@@ -5,18 +5,18 @@
 
 </div>
 
-<div>
-
+<div> 
+<!-- (toggleHighlight)="onToggle($event)"
+highlighted -->
   <div class="demo">
 
-
-      <button (click)="onEditCourse()" i18n>Edit Course</button>
+      <button (click)="onEditCourse()" i18n>Edit Course </button>
 
   </div>
 
   <div class="courses">
 
-    <course-card *ngFor="let course of  courses  "
+    <course-card highlighted  (toggleHighlight)="onToggle($event)" *ngFor="let course of  courses"
                  (courseChanged)="save($event)"
                  type="beginner"
                  [course]="course">

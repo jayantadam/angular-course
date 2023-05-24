@@ -32,8 +32,10 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // const htmlElement = createCustomElement(CourseTitleComponent, {injector:this.injector});
-    // customElements.define('course-title', htmlElement);
+    const htmlElement = createCustomElement(CourseTitleComponent, {
+      injector: this.injector,
+    });
+    customElements.define("course-title", htmlElement);
   }
 
   onEditCourse() {
@@ -44,5 +46,8 @@ export class AppComponent implements OnInit {
     this.coursesService
       .saveCourse(course)
       .subscribe(() => console.log("Course Saved!"));
+  }
+  onToggle(isHighlighted: boolean) {
+    console.log("isHighlighted", isHighlighted);
   }
 }
