@@ -1,0 +1,49 @@
+<div class="container">
+   <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
+         <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+         <div  class="col-xs-4">
+           
+            <div class="form-group">
+               <label for="username">ID </label>
+               <input type="text" class="form-control"
+                  id="username" formControlName = "id">
+            </div>
+        </div>
+        
+            <div  class="col-xs-4">
+               <div class="form-group">
+                  <label for="username">Name   </label>
+                  <input type="text" class="form-control"
+                     id="name" formControlName = "name">
+               </div>
+          </div>
+          
+          <div  class="col-xs-4">
+               <div class="form-group">
+                  <label for="username">Salary   </label>
+                  <input type="text" class="form-control"
+                     id="salary" formControlName = "salary">
+               </div>
+          </div>
+          
+          <div  class="col-xs-4">
+               <div class="form-group">
+                  <label for="username">Department   </label>
+                  <input type="text" class="form-control"
+                     id="department" formControlName = "department">
+               </div>
+          </div>
+          
+         
+         <button class="btn btn-primary" type="submit">Submit</button> 
+         </form>
+      </div>
+   </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-md-offset-2 col-sm-offset-1">
+      {{registrationForm.get('id').value}}   {{registrationForm.get('name').value}}
+        {{registrationForm.get('salary').value}}   {{registrationForm.get('department').value}}
+        </div>
+    </div>
+</div>
