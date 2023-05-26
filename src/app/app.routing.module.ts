@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { EmployeeComponent } from "./employee/employee.component";
+import { LoginComponent } from "./login/login.component";
 
 // import { AuthGuard }                          from './auth/auth.guard';
 
@@ -8,13 +9,18 @@ const appRoutes: Routes = [
   {
     path: "employee",
     component: EmployeeComponent,
- },
-  // {
-  //   path: 'admin',
-  //   loadChildren: './admin/admin.module#AdminModule',
-  //   canLoad: [AuthGuard]
-  // },
-  { path: "", redirectTo: "/employee", pathMatch: "full" },
+  },
+  {
+    path: "",
+    component: LoginComponent,
+  },
+  {
+    path: "products",
+    loadChildren: () =>
+      import("./products/products.module").then((m) => m.ProductsModule),
+    // canLoad: [AuthGuard]
+  },
+  { path: "", redirectTo: "/", pathMatch: "full" },
   // { path: '**', component: PageNotFoundComponent }
 ];
 
