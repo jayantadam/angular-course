@@ -7,6 +7,10 @@ const routes: Routes = [
     path: "list",
     component: ProductListComponent,
   },
+  {
+    path: "new",
+    component: ProductListComponent,
+  },
 ];
 
 @NgModule({

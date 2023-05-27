@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-
+import { ProductService } from "../product.service";
 @Component({
   selector: "product-list",
   templateUrl: "./product-list.component.html",
@@ -10,29 +10,41 @@ import { Router } from "@angular/router";
 export class ProductListComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
+  isProductForm: boolean = false;
+  href: string = "";
+  products = [];
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private productService: ProductService
+  ) {
+    this.href = this.router.url;
+    if (this.router.url.includes("new")) {
+      this.isProductForm = true;
+    }
+  }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      title: ["", Validators.required],
-      description: ["", Validators.required],
-      imageURL: ["", Validators.required],
-      quantity: ["", Validators.required],
+    this.getProducts();
+  }
+
+  getProducts() {
+    this.productService.getProducts().subscribe((data) => {
+      if (data?.length > 0) {
+        this.products = data?.slice(-5);
+        console.log("this.products", this.products.slice(0, 5));
+      }
     });
   }
-
-  get f() {
-    return this.loginForm.controls;
+  addButtonClicked() {
+    this.router.navigate([`/products/new`]);
   }
-
-  onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      return;
+  parentWillTakeAction(message: any) {
+    if (message == "product added") {
+      this.router.navigate([`/products/list`]);
     }
-    this.router.navigate([`/products/list`]);
+    console.log("message===>", message);
+    // this.messageFromChild = message;
   }
 }

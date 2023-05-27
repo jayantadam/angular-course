@@ -20,7 +20,7 @@ const appRoutes: Routes = [
       import("./products/products.module").then((m) => m.ProductsModule),
     // canLoad: [AuthGuard]
   },
-  { path: "", redirectTo: "/", pathMatch: "full" },
+  { path: "", redirectTo: "products/list", pathMatch: "full" },
   // { path: '**', component: PageNotFoundComponent }
 ];
 

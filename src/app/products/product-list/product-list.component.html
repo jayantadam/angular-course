@@ -1,1 +1,44 @@
-<add-edit-products></add-edit-products>
+      
+<div class="row">
+   <div class="col-md-2" class="addBtn">
+      <div class="form-group">
+       
+         <button class="btn btn-primary" (click)="addButtonClicked()">Add New Product</button>
+      </div>
+      </div>
+      </div>
+<div class="row">
+   <div class="col-md-3">
+      <div class="form-group">
+         <div class="card">
+            <div class="header">
+               <h2>Headphones</h2>
+            </div>
+            <hr>
+            <div class="body">
+               <div class="imgDiv">
+                  <img class="img" src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+                  <div><b>5</b></div>
+                  <div>70,000</div>
+               </div>
+               <br>
+               <div class="footer">
+                  <button class="btn btn-primary btn1" (click)="addButtonClicked()">Edit</button>
+                  <button class="btn btn-primary btn2" (click)="addButtonClicked()">Delete</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div class="jumbotron">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+               <add-edit-products *ngIf="isProductForm" (informParent)="parentWillTakeAction($event)"></add-edit-products>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
