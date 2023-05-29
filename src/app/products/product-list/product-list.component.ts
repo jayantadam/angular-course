@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { ProductService } from "../product.service";
+import { Product } from "../../model/product";
+
 @Component({
   selector: "product-list",
   templateUrl: "./product-list.component.html",
@@ -12,37 +14,43 @@ export class ProductListComponent implements OnInit {
   submitted = false;
   isProductForm: boolean = false;
   href: string = "";
-  products = [];
-
+  products: Product[];
+  productID: number = 0;
   constructor(
     private router: Router,
-    private formBuilder: FormBuilder,
+    private activatedroute: ActivatedRoute,
     private productService: ProductService
   ) {
     this.href = this.router.url;
-    if (this.router.url.includes("new")) {
+    if (this.router.url.includes("new") || this.router.url.includes("edit")) {
       this.isProductForm = true;
     }
   }
 
   ngOnInit() {
+    this.activatedroute.params.subscribe((event) => {
+      this.productID = event.id;
+    });
     this.getProducts();
   }
 
   getProducts() {
-    this.productService.getProducts().subscribe((data) => {
+    this.productService.getProducts().subscribe((data: any) => {
       if (data?.length > 0) {
-        this.products = data?.slice(-5);
-        console.log("this.products", this.products.slice(0, 5));
+        this.products = data;
       }
     });
   }
   addButtonClicked() {
     this.router.navigate([`/products/new`]);
   }
-  parentWillTakeAction(message: any) {
-    if (message == "product added") {
-      this.router.navigate([`/products/list`]);
+  editButtonClicked(id: number) {
+    this.router.navigate([`/products/edit/` + id]);
+  }
+  parentWillTakeAction(response: any) {
+    if (response?.status == "product added") {
+      this.products = response?.products;
+      this.router.navigate(["/products/list"]);
     }
   }
 }

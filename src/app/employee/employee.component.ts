@@ -17,26 +17,26 @@ export class EmployeeComponent {
   constructor(public fb: FormBuilder, private cd: ChangeDetectorRef) {}
 
   /*##################### Registration Form #####################*/
-  registrationForm = this.fb.group({
-    id: [""],
-    name: [""],
-    salary: [""],
-    department: [""],
+  employeeForm = this.fb.group({
+    id: ["", Validators.required],
+    name: ["", Validators.required],
+    salary: ["", Validators.required],
+    department: ["", Validators.required],
   });
 
   // Getter method to access formcontrols
-  get myForm() {
-    return this.registrationForm.controls;
+  get f() {
+    return this.employeeForm.controls;
   }
 
   // Submit Registration Form
   onSubmit() {
     this.submitted = true;
-    if (!this.registrationForm.valid) {
+    if (!this.employeeForm.valid) {
       alert("Please fill all the required fields to create a super hero!");
       return false;
     } else {
-      console.log(this.registrationForm.value);
+      console.log(this.employeeForm.value);
     }
   }
 }

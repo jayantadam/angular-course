@@ -1,39 +1,54 @@
-<div class="container">
-  <div class="col-md-6">
-	<form  [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-		<div class="form-group">
-			<label class="center-block">ID:
-        <input type="number" class="form-control" formControlName = "id">
-      </label>
-		</div>
-		<div>
-			<div class="form-group">
-				<label class="center-block">Name:
-          <input type="text" class="form-control" formControlName = "name">
-        </label>
-			</div>
-			<div class="form-group">
-				<label class="center-block">Salary:
-          <input type="number" class="form-control" formControlName = "salary">
-        </label>
-			</div>
-			<div class="form-group">
-				<label class="center-block">Department:
-          <input type="text" class="form-control" formControlName = "department">
-        </label>
-			</div>
-      
-      		<div class="form-group">
-			  <button type="button" class="form-control">Add Employee</button>
-    	</div>
-		</div>
-    
-    <div class="form-group">
+<div class="jumbotron">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+               <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>ID</label>
+                        <input type="number" formControlName="id" class="form-control" [ngClass]="{ 'is-invalid': (submitted || f.id.touched) && f.id.errors }" />
+                        <div *ngIf="(submitted || f.id.touched) && f.id.errors" class="invalid-feedback">
+                            <div *ngIf="f.id.errors.required">ID is required</div>
+                        </div>
+                    </div>
+                    
+                 <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': (submitted || f.name.touched) && f.name.errors }" />
+                        <div *ngIf="(submitted || f.name.touched) && f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required">Name is required</div>
+                        </div>
+                  </div>
+                    
+                 
+                   <div class="form-group">
+                        <label>Salary</label>
+                        <input type="number" formControlName="salary" class="form-control" [ngClass]="{ 'is-invalid': (submitted || f.salary.touched) && f.salary.errors }" />
+                        <div *ngIf="(submitted || f.salary.touched) && f.salary.errors" class="invalid-feedback">
+                            <div *ngIf="f.salary.errors.required">Salary is required</div>
+                        </div>
+                  </div>
+                  
+                  <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" formControlName="department" class="form-control" [ngClass]="{ 'is-invalid': (submitted || f.department.touched) && f.department.errors }" />
+                        <div *ngIf="(submitted || f.department.touched) && f.department.errors" class="invalid-feedback">
+                            <div *ngIf="f.department.errors.required">Department is required</div>
+                        </div>
+                  </div>
+                   
+            <div class="form-group">
+               <button class="btn btn-primary" [disabled]="employeeForm.invalid">Add Employee</button>
+            </div> 
+            
+                <div class="form-group">
 		
-       {{registrationForm.get('id').value}}   {{registrationForm.get('name').value}}
-        {{registrationForm.get('salary').value}}   {{registrationForm.get('department').value}}
+       {{employeeForm.get('id').value}}   {{employeeForm.get('name').value}}
+        {{employeeForm.get('salary').value}}   {{employeeForm.get('department').value}}
     </div>
-	</form>
-</div>
-
-</div>
+     </form>
+     </div>
+     </div>
+     </div>
+     </div>
+     </div>

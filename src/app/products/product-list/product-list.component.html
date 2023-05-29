@@ -16,13 +16,13 @@
             <hr>
             <div class="body">
                <div class="imgDiv">
-                  <img class="img" src="https://material.angular.io/assets/img/examples/shiba2.jpg">
-                  <div><b>10</b></div>
-                  <div>55,000</div>
+                  <img class="img" src="{{product?.imageURL}}">
+                  <div><b>{{product?.price}}</b></div>
+                  <div>{{product?.quantity}}</div>
                </div>
                <br>
                <div class="footer">
-                  <button class="btn btn-primary btn1" (click)="addButtonClicked()">Edit</button>
+                  <button class="btn btn-primary btn1" (click)="editButtonClicked(product?.id)">Edit</button>
                   <button class="btn btn-primary btn2" (click)="addButtonClicked()">Delete</button>
                </div>
             </div>
@@ -35,7 +35,7 @@
       <div class="row">
          <div class="col-md-6 offset-md-3">
             <div class="form-group">
-               <add-edit-products *ngIf="isProductForm" (informParent)="parentWillTakeAction($event)"></add-edit-products>
+               <add-edit-products *ngIf="isProductForm" [productID]="productID" (informParent)="parentWillTakeAction($event)"></add-edit-products>
             </div>
          </div>
       </div>
