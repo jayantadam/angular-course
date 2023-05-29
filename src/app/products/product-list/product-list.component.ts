@@ -44,7 +44,5 @@ export class ProductListComponent implements OnInit {
     if (message == "product added") {
       this.router.navigate([`/products/list`]);
     }
-    console.log("message===>", message);
-    // this.messageFromChild = message;
   }
 }

@@ -2,24 +2,23 @@
 <div class="row">
    <div class="col-md-2" class="addBtn">
       <div class="form-group">
-       
-         <button class="btn btn-primary" (click)="addButtonClicked()">Add New Product</button>
+       <button class="btn btn-primary" (click)="addButtonClicked()">Add New Product</button>
       </div>
       </div>
       </div>
-<div class="row">
-   <div class="col-md-3">
+<div class="row no-gutters">
+   <div class="col-md-3" *ngFor="let product of products">
       <div class="form-group">
          <div class="card">
             <div class="header">
-               <h2>Headphones</h2>
+              {{product?.title}}
             </div>
             <hr>
             <div class="body">
                <div class="imgDiv">
                   <img class="img" src="https://material.angular.io/assets/img/examples/shiba2.jpg">
-                  <div><b>5</b></div>
-                  <div>70,000</div>
+                  <div><b>10</b></div>
+                  <div>55,000</div>
                </div>
                <br>
                <div class="footer">

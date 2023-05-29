@@ -20,7 +20,8 @@ export class AddEditProductsComponent implements OnInit {
     this.productForm = this.formBuilder.group({
       title: ["", Validators.required],
       description: ["", Validators.required],
-      imageURL: ["", Validators.required],
+      // imageURL: ["", Validators.required],
+      imageURL: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]],
       quantity: ["", Validators.required],
     });
   }
