@@ -9,7 +9,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './auth-guard.service';
-
+import {ProductsModule} from './products/products.module';
 @NgModule({
   declarations: [AppComponent, EmployeeComponent, LoginComponent],
   imports: [
@@ -17,7 +17,8 @@ import { AuthGuard } from './auth-guard.service';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ProductsModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

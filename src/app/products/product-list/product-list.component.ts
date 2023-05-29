@@ -30,8 +30,6 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
-    let result=JSON.parse(localStorage.getItem('userData'));
-    this.loggedInUserName=result?.response?.name;
   }
 
   getProducts() {

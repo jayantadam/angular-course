@@ -9,6 +9,7 @@ const appRoutes: Routes = [
   {
     path: "employee",
     component: EmployeeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "",
