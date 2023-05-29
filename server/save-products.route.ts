@@ -7,8 +7,6 @@ export function saveproduct(req: Request, res: Response) {
     const id = parseInt(req.params["id"]),
           changes = req.body;
 
-    console.log("Saving product", id, JSON.stringify(changes));
-
     const product = findProductById(id);
 
     product.description = changes.description;

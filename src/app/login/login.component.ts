@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-
+import {AuthService} from '../auth.service';
 @Component({
   selector: "login",
   templateUrl: "./login.component.html",
@@ -11,12 +11,12 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  constructor(public authService:AuthService,private router: Router, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ["", Validators.required],
-      password: ["", Validators.required],
+      username: ["cristiano", Validators.required],
+      password: ["ronaldo", Validators.required],
     });
   }
 
@@ -31,6 +31,21 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    this.router.navigate([`/products/list`]);
+    
+    this.authService
+      .login(this.loginForm.value)
+      .subscribe((data: any) => {
+        if (data) {
+          if(data.response.name=='login failed')
+        {
+          alert('Username or Password is incorrect!')
+        }
+        else{
+            this.authService.setLoginStatus(true);
+        localStorage.setItem('userData',JSON.stringify(data));
+             this.router.navigate([`/products/list`]);
+        }
+        }
+      });
   }
 }

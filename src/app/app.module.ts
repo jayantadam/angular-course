@@ -8,6 +8,7 @@ import { AppRoutingModule } from "./app.routing.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './auth-guard.service';
 
 @NgModule({
   declarations: [AppComponent, EmployeeComponent, LoginComponent],
@@ -18,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

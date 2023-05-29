@@ -16,6 +16,7 @@ export class ProductListComponent implements OnInit {
   isProductForm: boolean = false;
   href: string = "";
   products: Product[];
+  loggedInUserName:string;
   constructor(
     private router: Router,
     private activatedroute: ActivatedRoute,
@@ -29,6 +30,8 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
+    let result=JSON.parse(localStorage.getItem('userData'));
+    this.loggedInUserName=result?.response?.name;
   }
 
   getProducts() {
@@ -36,7 +39,11 @@ export class ProductListComponent implements OnInit {
       if (data?.length > 0) {
         this.products = data;
       }
-    });
+    },
+    error => {
+       console.log("error===>",error)
+      }
+    );
   }
   addButtonClicked() {
     this.router.navigate([`/products/new`]);
@@ -50,4 +57,18 @@ export class ProductListComponent implements OnInit {
       this.router.navigate(["/products/list"]);
     }
   }
+  clickMethod(product: Product) {
+  if(confirm("Are you sure to delete "+product.title)) {
+    this.productService.deleteProduct(product.id).subscribe((data: any) => {
+      this.getProducts();
+    },
+     error => {
+       console.log("error===>",error)
+      });
+  }
+}
+logout(){
+  localStorage.clear();
+    this.router.navigate(["/"]);
+}
 }

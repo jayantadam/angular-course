@@ -31,7 +31,10 @@ export class AddEditProductsComponent implements OnInit {
        this.productID=event.id;
        this.getProductByID(event.id);
    }
-    });
+    },
+     error => {
+       console.log("error===>",error)
+      });
     
     this.productForm = this.formBuilder.group({
       title: ["", Validators.required],
@@ -61,7 +64,9 @@ export class AddEditProductsComponent implements OnInit {
           price: data?.price,
     });
       }
-    })
+    }, error => {
+       console.log("error===>",error)
+      })
   }
   get f() {
     return this.productForm.controls;
@@ -81,6 +86,9 @@ if(this.productID){
         if (data) {
           this.informParent.emit({ status: "product added", products: data });
         }
+      },
+       error => {
+       console.log("error===>",error)
       });
   }
 
@@ -92,6 +100,9 @@ else{
         if (data) {
           this.informParent.emit({ status: "product added", products: data });
         }
+      },
+       error => {
+       console.log("error===>",error)
       });
   }
 }

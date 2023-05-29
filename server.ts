@@ -3,6 +3,7 @@ import { Application } from "express";
 import { getAllProducts, addProduct } from "./server/products.route";
 import { ProductsCRUDRouter } from "./server/product-crud/products.route";
 // import {saveCourse} from './server/save-products.route';
+import { login } from "./server/auth/auth.route";
 const cors = require("cors");
 
 const bodyParser = require("body-parser");
@@ -16,8 +17,7 @@ app.use(bodyParser.json());
 // app.route("/api/add-products").post(addProduct);
 
 app.use("/api/products", ProductsCRUDRouter);
-
-// app.route('/api/courses/:id').put(saveCourse);
+app.route("/api/login").post(login);
 
 const httpServer = app.listen(9000, () => {
   console.log(

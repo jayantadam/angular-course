@@ -2,8 +2,8 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { EmployeeComponent } from "./employee/employee.component";
 import { LoginComponent } from "./login/login.component";
+import { AuthGuard } from './auth-guard.service';
 
-// import { AuthGuard }                          from './auth/auth.guard';
 
 const appRoutes: Routes = [
   {
@@ -18,7 +18,7 @@ const appRoutes: Routes = [
     path: "products",
     loadChildren: () =>
       import("./products/products.module").then((m) => m.ProductsModule),
-    // canLoad: [AuthGuard]
+      canActivate: [AuthGuard]
   },
   { path: "", redirectTo: "products/list", pathMatch: "full" },
   // { path: '**', component: PageNotFoundComponent }
