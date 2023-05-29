@@ -17,7 +17,7 @@
             <div class="body">
                <div class="imgDiv">
                   <img class="img" src="{{product?.imageURL}}">
-                  <div><b>{{product?.price}}</b></div>
+                  <div><b>{{product?.price * product?.quantity}}</b></div>
                   <div>{{product?.quantity}}</div>
                </div>
                <br>
@@ -35,7 +35,7 @@
       <div class="row">
          <div class="col-md-6 offset-md-3">
             <div class="form-group">
-               <add-edit-products *ngIf="isProductForm" [productID]="productID" (informParent)="parentWillTakeAction($event)"></add-edit-products>
+               <add-edit-products *ngIf="isProductForm" (informParent)="parentWillTakeAction($event)"></add-edit-products>
             </div>
          </div>
       </div>

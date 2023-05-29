@@ -8,6 +8,7 @@ import { Product } from "../../model/product";
   selector: "product-list",
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.css"],
+  
 })
 export class ProductListComponent implements OnInit {
   loginForm: FormGroup;
@@ -15,7 +16,6 @@ export class ProductListComponent implements OnInit {
   isProductForm: boolean = false;
   href: string = "";
   products: Product[];
-  productID: number = 0;
   constructor(
     private router: Router,
     private activatedroute: ActivatedRoute,
@@ -28,9 +28,6 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedroute.params.subscribe((event) => {
-      this.productID = event.id;
-    });
     this.getProducts();
   }
 
@@ -45,7 +42,7 @@ export class ProductListComponent implements OnInit {
     this.router.navigate([`/products/new`]);
   }
   editButtonClicked(id: number) {
-    this.router.navigate([`/products/edit/` + id]);
+   this.router.navigate([`/products/edit/` + id]);
   }
   parentWillTakeAction(response: any) {
     if (response?.status == "product added") {

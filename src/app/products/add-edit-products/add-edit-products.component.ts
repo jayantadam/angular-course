@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input,ChangeDetectionStrategy } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router,ActivatedRoute } from "@angular/router";
 import { Product } from "../../model/product";
 import { ProductService } from "../product.service";
 
@@ -8,26 +8,36 @@ import { ProductService } from "../product.service";
   selector: "add-edit-products",
   templateUrl: "./add-edit-products.component.html",
   styleUrls: ["./add-edit-products.component.css"],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class AddEditProductsComponent implements OnInit {
   productForm: FormGroup;
   submitted = false;
-
-  @Input() productID: number;
+  productID: number;
   @Output() informParent = new EventEmitter();
 
   constructor(
     private productService: ProductService,
-    private router: Router,
+      private activatedroute: ActivatedRoute,
     private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
+    
+    this.activatedroute.params.subscribe((event) => {
+      if(event.id)
+   {
+       this.productID=event.id;
+       this.getProductByID(event.id);
+   }
+    });
+    
     this.productForm = this.formBuilder.group({
-      title: ["title", Validators.required],
-      description: ["description", Validators.required],
+      title: ["", Validators.required],
+      description: ["", Validators.required],
       imageURL: [
-        "https://nd0g1j-4200.csb.app/products/new",
+        "",
         [
           Validators.required,
           Validators.pattern(
@@ -35,23 +45,20 @@ export class AddEditProductsComponent implements OnInit {
           ),
         ],
       ],
-      quantity: ["5", Validators.required],
-      price: ["7", Validators.required],
+      quantity: ["", Validators.required],
+      price: [""],
     });
-    console.log("this.productID", this.productID);
-    this.getProductByID(this.productID);
+ 
   }
   getProductByID(productID: number) {
     this.productService.getProduct(productID).subscribe((data: Product) => {
       if (data) {
-        console.log("data==>", data);
-        // this.productForm.setValue({ data });
         this.productForm.patchValue({
-        title: data?.title,
-      description: data?.description,
-      imageURL:data?.imageURL,
-      quantity:data?.quantity,
-      price: data?.price,
+         title: data?.title,
+          description: data?.description,
+          imageURL:data?.imageURL,
+          quantity:data?.quantity,
+          price: data?.price,
     });
       }
     })
@@ -67,8 +74,19 @@ export class AddEditProductsComponent implements OnInit {
     if (this.productForm.invalid) {
       return;
     }
+if(this.productID){
+   this.productService
+      .updateProduct(this.productID,this.productForm.value)
+      .subscribe((data: Product[]) => {
+        if (data) {
+          this.informParent.emit({ status: "product added", products: data });
+        }
+      });
+  }
 
-    this.productService
+else{
+  this.productForm.get("price").setValue(499);
+   this.productService
       .addProduct(this.productForm.value)
       .subscribe((data: Product[]) => {
         if (data) {
@@ -76,4 +94,10 @@ export class AddEditProductsComponent implements OnInit {
         }
       });
   }
+}
+   
+    ngOnDestroy() {
+      this.productID=null;
+    }
+
 }

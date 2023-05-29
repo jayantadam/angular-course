@@ -38,8 +38,8 @@ export class ProductService {
       .pipe(catchError(this.handleError));
   }
 
-  updateProduct(product: any): Observable<any> {
-    return this.http.put<any>("/api/products/", product).pipe(
+  updateProduct(productID:number,product: Product): Observable<any> {
+    return this.http.put<any>("/api/products/"+productID, product).pipe(
       map(() => product),
       catchError(this.handleError)
     );
