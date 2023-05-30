@@ -4,7 +4,7 @@
       <div class="row">
          <div class="col-md-6 offset-md-3">
             <div class="form-group">
-               <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+               <form [formGroup]="employeeForm" id="employeeForm" (ngSubmit)="onSubmit()">
                     <div class="form-group">
                         <label>ID</label>
                         <input type="number" formControlName="id" class="form-control" [ngClass]="{ 'is-invalid': (submitted || f.id.touched) && f.id.errors }" />
@@ -39,14 +39,15 @@
                   </div>
                    
             <div class="form-group">
-               <button class="btn btn-primary" [disabled]="employeeForm.invalid">Add Employee</button>
+               <button class="btn btn-primary" id="addEmployee" [disabled]="employeeForm.invalid">Add Employee</button>
             </div> 
             
-                <div class="form-group">
-		
-       {{employeeForm.get('id').value}}   {{employeeForm.get('name').value}}
-        {{employeeForm.get('salary').value}}   {{employeeForm.get('department').value}}
-    </div>
+    <div class="form-group">
+		<span id="idColumn" class="mr-1">{{employeeForm.get('id').value}}</span>   
+    <span id="nameColumn" class="mr-1">{{employeeForm.get('name').value}}</span>  
+    <span id="salaryColumn" class="mr-1">{{employeeForm.get('salary').value}}</span>  
+    <span id="departmentColumn">{{employeeForm.get('department').value}}</span>  
+         </div>
      </form>
      </div>
      </div>

@@ -8,7 +8,6 @@ import { Product } from "../../model/product";
   selector: "product-list",
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.css"],
-  
 })
 export class ProductListComponent implements OnInit {
   loginForm: FormGroup;
@@ -16,7 +15,7 @@ export class ProductListComponent implements OnInit {
   isProductForm: boolean = false;
   href: string = "";
   products: Product[];
-  loggedInUserName:string;
+  loggedInUserName: string;
   constructor(
     private router: Router,
     private activatedroute: ActivatedRoute,
@@ -33,13 +32,14 @@ export class ProductListComponent implements OnInit {
   }
 
   getProducts() {
-    this.productService.getProducts().subscribe((data: any) => {
-      if (data?.length > 0) {
-        this.products = data;
-      }
-    },
-    error => {
-       console.log("error===>",error)
+    this.productService.getProducts().subscribe(
+      (data: any) => {
+        if (data?.length > 0) {
+          this.products = data;
+        }
+      },
+      (error) => {
+        console.log("error===>", error);
       }
     );
   }
@@ -47,26 +47,27 @@ export class ProductListComponent implements OnInit {
     this.router.navigate([`/products/new`]);
   }
   editButtonClicked(id: number) {
-   this.router.navigate([`/products/edit/` + id]);
+    this.router.navigate([`/products/edit/` + id]);
   }
   parentWillTakeAction(response: any) {
-    if (response?.status == "product added") {
-      this.products = response?.products;
+    if (response?.status == "product added/updated") {
       this.router.navigate(["/products/list"]);
     }
   }
   clickMethod(product: Product) {
-  if(confirm("Are you sure to delete "+product.title)) {
-    this.productService.deleteProduct(product.id).subscribe((data: any) => {
-      this.getProducts();
-    },
-     error => {
-       console.log("error===>",error)
-      });
+    if (confirm("Are you sure to delete " + product.title)) {
+      this.productService.deleteProduct(product.id).subscribe(
+        (data: any) => {
+          this.getProducts();
+        },
+        (error) => {
+          console.log("error===>", error);
+        }
+      );
+    }
   }
-}
-logout(){
-  localStorage.clear();
+  logout() {
+    localStorage.clear();
     this.router.navigate(["/"]);
-}
+  }
 }

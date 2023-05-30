@@ -33,7 +33,6 @@ export class EmployeeComponent {
   onSubmit() {
     this.submitted = true;
     if (!this.employeeForm.valid) {
-      alert("Please fill all the required fields to create a super hero!");
       return false;
     } else {
       console.log(this.employeeForm.value);

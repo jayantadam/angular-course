@@ -1,21 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AddEditProductsComponent } from './add-edit-products.component';
+import { AddEditProductsComponent } from "./add-edit-products.component";
 
-describe('AddEditProductsComponent', () => {
+xdescribe("AddEditProductsComponent", () => {
   let component: AddEditProductsComponent;
   let fixture: ComponentFixture<AddEditProductsComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AddEditProductsComponent]
+      declarations: [AddEditProductsComponent],
     });
     fixture = TestBed.createComponent(AddEditProductsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

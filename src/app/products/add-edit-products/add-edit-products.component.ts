@@ -1,6 +1,13 @@
-import { Component, OnInit, Output, EventEmitter, Input,ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  ChangeDetectionStrategy,
+} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router,ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Product } from "../../model/product";
 import { ProductService } from "../product.service";
 
@@ -8,8 +15,7 @@ import { ProductService } from "../product.service";
   selector: "add-edit-products",
   templateUrl: "./add-edit-products.component.html",
   styleUrls: ["./add-edit-products.component.css"],
-  changeDetection: ChangeDetectionStrategy.OnPush
-
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddEditProductsComponent implements OnInit {
   productForm: FormGroup;
@@ -19,23 +25,22 @@ export class AddEditProductsComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-      private activatedroute: ActivatedRoute,
+    private activatedroute: ActivatedRoute,
     private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
-    
-    this.activatedroute.params.subscribe((event) => {
-      if(event.id)
-   {
-       this.productID=event.id;
-       this.getProductByID(event.id);
-   }
-    },
-     error => {
-       console.log("error===>",error)
-      });
-    
+    this.activatedroute.params.subscribe(
+      (event) => {
+        if (event.id) {
+          this.productID = event.id;
+          this.getProductByID(event.id);
+        }
+      },
+      (error) => {
+        console.log("error===>", error);
+      }
+    );
     this.productForm = this.formBuilder.group({
       title: ["", Validators.required],
       description: ["", Validators.required],
@@ -51,22 +56,24 @@ export class AddEditProductsComponent implements OnInit {
       quantity: ["", Validators.required],
       price: [""],
     });
- 
   }
   getProductByID(productID: number) {
-    this.productService.getProduct(productID).subscribe((data: Product) => {
-      if (data) {
-        this.productForm.patchValue({
-         title: data?.title,
-          description: data?.description,
-          imageURL:data?.imageURL,
-          quantity:data?.quantity,
-          price: data?.price,
-    });
+    this.productService.getProduct(productID).subscribe(
+      (data: Product) => {
+        if (data) {
+          this.productForm.patchValue({
+            title: data?.title,
+            description: data?.description,
+            imageURL: data?.imageURL,
+            quantity: data?.quantity,
+            price: data?.price,
+          });
+        }
+      },
+      (error) => {
+        console.log("error===>", error);
       }
-    }, error => {
-       console.log("error===>",error)
-      })
+    );
   }
   get f() {
     return this.productForm.controls;
@@ -79,36 +86,37 @@ export class AddEditProductsComponent implements OnInit {
     if (this.productForm.invalid) {
       return;
     }
-if(this.productID){
-   this.productService
-      .updateProduct(this.productID,this.productForm.value)
-      .subscribe((data: Product[]) => {
-        if (data) {
-          this.informParent.emit({ status: "product added", products: data });
+    if (this.productID) {
+      this.productService
+        .updateProduct(this.productID, this.productForm.value)
+        .subscribe(
+          (data: Product[]) => {
+            if (data) {
+              this.informParent.emit({
+                status: "product added/updated"
+             });
+            }
+          },
+          (error) => {
+            console.log("error===>", error);
+          }
+        );
+    } else {
+      this.productForm.get("price").setValue(499);
+      this.productService.addProduct(this.productForm.value).subscribe(
+        (data: Product[]) => {
+          if (data) {
+            this.informParent.emit({ status: "product added/updated"});
+          }
+        },
+        (error) => {
+          console.log("error===>", error);
         }
-      },
-       error => {
-       console.log("error===>",error)
-      });
-  }
-
-else{
-  this.productForm.get("price").setValue(499);
-   this.productService
-      .addProduct(this.productForm.value)
-      .subscribe((data: Product[]) => {
-        if (data) {
-          this.informParent.emit({ status: "product added", products: data });
-        }
-      },
-       error => {
-       console.log("error===>",error)
-      });
-  }
-}
-   
-    ngOnDestroy() {
-      this.productID=null;
+      );
     }
+  }
 
+  ngOnDestroy() {
+    this.productID = null;
+  }
 }
