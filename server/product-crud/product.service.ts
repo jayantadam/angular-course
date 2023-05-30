@@ -1,33 +1,59 @@
 import { BaseItem, Product } from "./product.interface";
 import { Products } from "./products.interface";
 
+// let products: Products = {
+//   1: {
+//     id: 1,
+//     title: "Burger",
+//     price: 599,
+//     description: "Tasty",
+//     imageURL: "https://cdn.auth0.com/blog/whatabyte/burger-sm.png",
+//     quantity: 1,
+//   },
+//   2: {
+//     id: 2,
+//     title: "Pizza",
+//     price: 299,
+//     description: "Cheesy",
+//     imageURL: "https://cdn.auth0.com/blog/whatabyte/pizza-sm.png",
+//     quantity: 12,
+//   },
+//   3: {
+//     id: 3,
+//     title: "Tea",
+//     price: 199,
+//     description: "Informative",
+//     imageURL: "https://cdn.auth0.com/blog/whatabyte/tea-sm.png",
+//     quantity: 3,
+//   },
+// };
+
 let products: Products = {
   1: {
     id: 1,
-    title: "Burger",
+    title: "Headphones",
     price: 599,
-    description: "Tasty",
-    imageURL: "https://cdn.auth0.com/blog/whatabyte/burger-sm.png",
+    description: "Headphones",
+    imageURL: "https://img.freepik.com/free-photo/pink-headphones-wireless-digital-device_53876-96804.jpg",
     quantity: 1,
   },
   2: {
     id: 2,
-    title: "Pizza",
+    title: "Mobile",
     price: 299,
-    description: "Cheesy",
-    imageURL: "https://cdn.auth0.com/blog/whatabyte/pizza-sm.png",
+    description: "iphone 13",
+    imageURL: "https://t4.ftcdn.net/jpg/04/91/82/65/240_F_491826589_gfbu5s7x4yYDV5bdSGylXxLZJPc11QhR.jpg",
     quantity: 12,
   },
   3: {
     id: 3,
-    title: "Tea",
+    title: "TV",
     price: 199,
     description: "Informative",
-    imageURL: "https://cdn.auth0.com/blog/whatabyte/tea-sm.png",
+    imageURL: "https://t4.ftcdn.net/jpg/01/51/00/87/240_F_151008771_Kvl6PeN8PeXL7cfeqtKJloSX7UDgHDxS.jpg",
     quantity: 3,
   },
 };
-
 /**
  * Service Methods
  */
